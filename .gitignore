@@ -9,3 +9,6 @@ __pycache__/*
 
 # scratch files for practicing
 data/scratch/
+
+# training data
+data/dataset/train
