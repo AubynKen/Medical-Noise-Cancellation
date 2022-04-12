@@ -8,15 +8,14 @@ import torch.nn.functional as F
 import torch.nn as nn
 from tqdm import tqdm # progress bar
 from torch.optim import Adam
+import argparse, yaml
+from datetime import datetime
 
 # arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('-config', help="configuration file *.yml", type=str, required=True, default='unet-training.yml')
 args = parser.parse_args()
-opt = yaml.load(open(args.config), Loader=yaml.FullLoader)
-opt.update(vars(args))
-args = opt
-
+args = yaml.load(open(args.config), Loader=yaml.FullLoader)
 
 # custom modules
 from model import (StentDataset, # custom dataset
@@ -24,28 +23,23 @@ from model import (StentDataset, # custom dataset
                    UNet) # our PyTorch U-Net model
 
 # custom image generator
-image_generator = ImageAugmentation(base_image_path="data/dataset/base_png")
+image_generator = ImageAugmentation(base_image_path=args['dataloader']['base_image_path'])
 
 # generate train images
-image_generator.generate_input_images(n_images=100,
-                                      save_path="data/dataset/train",
-                                      generate_input=True,
-                                      print_progress=True)
+image_generator.generate_input_images(**args['dataloader']['train'])
 
 # generate test images
-image_generator.generate_input_images(n_images=20,
-                                      save_path="data/dataset/test",
-                                      generate_input=True,
-                                      print_progress=False)
+image_generator.generate_input_images(**args['dataloader']['test'])
 
-dataset = StentDataset(input_path="data/dataset/train/x",
-                       target_path="data/dataset/train/y")
+input_path = os.path.join(args['dataloader']['train']['save_path'], 'x')
+target_path = os.path.join(args['dataloader']['train']['save_path'], 'y')
+dataset = StentDataset(input_path, target_path)
 
 model = UNet(in_channels=1, out_channels=1)
 model.double()
-training_loader = DataLoader(dataset, batch_size=1, shuffle=True)
+training_loader = DataLoader(dataset, batch_size=args['dataloader']['batch_size'], shuffle=True)
 criterion = nn.MSELoss()
-optimizer = Adam(model.parameters(), lr=0.001, weight_decay)
+optimizer = Adam(model.parameters(), **args['optimizer'])
 
 # initial prediction image
 plt.imshow(dataset[26][0], cmap="gray")
@@ -53,8 +47,7 @@ prediction = model(dataset[26][0].reshape(1, 512, 512))
 plt.imshow(prediction.detach().numpy()[0], cmap="gray")
 
 # parameters
-epochs = 1
-batch_size = 1
+epochs = args['epochs']
 
 # training
 losses = []
@@ -75,4 +68,5 @@ for epoch in range(epochs):
               .format(epoch + 1, epochs, i + 1, len(training_loader), loss.item()))
 
 # saving the model
-torch.save(model.state_dict(), PATH)
+model_save_path = os.path.join(args['model_save_path'], "unet_" + datetime.now().strftime("%Y%m%d_%H%M"))
+torch.save(model.state_dict(), model_save_path)
