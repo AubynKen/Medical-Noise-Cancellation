@@ -28,17 +28,19 @@ class StentDataset(Dataset):
         # convert to numpy array
         input_img = torch.tensor(np.array(input_img), dtype=torch.double)
         target_img = torch.tensor(np.array(target_img), dtype=torch.double)
+        # crop the image
+        delta = 94  # we loose 94 pixels on each side during convolution
+        target_img = target_img[delta:-delta, delta:-delta]
+        # normalize the image
+        input_img = input_img / 2 ** 16
+        target_img = target_img / 2 ** 16
+        # unsqueeze the images
+        input_img = input_img.unsqueeze(0)
+        target_img = target_img.unsqueeze(0)
         # send to cuda device if available
         input_img = input_img.cuda() if torch.cuda.is_available() else input_img
         target_img = target_img.cuda() if torch.cuda.is_available() else target_img
-        # crop the image
-        delta = 94  # we loose 94 pixels on each side during convolution
-        target_image = target_img[delta:-delta, delta:-delta]
-        # normalize the image
-        input_img = input_img / 2 ** 16
-        target_image = target_image / 2 ** 16
-        # return the image
-        return input_img, target_image
+        return input_img, target_img
 
     def __getitem__(self, idx):
         return self._getitem_offline(idx)
