@@ -20,6 +20,5 @@ optimizer:
 
 epochs: 1
 
-model_save_path: 'saved_models'
-
-result_path: 'results'
+ckpt_path: 'unet_ckpt'
+results_path: 'unet_results'

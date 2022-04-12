@@ -2,6 +2,7 @@ from PIL import Image
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 import torch
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
@@ -9,8 +10,10 @@ import torch.nn as nn
 from tqdm import tqdm # progress bar
 from torch.optim import Adam
 from torchvision.utils import save_image
+from torchvision import transforms
 import argparse, yaml
 from datetime import datetime
+import warnings
 
 # custom modules
 from model import (StentDataset, # custom dataset
@@ -23,13 +26,16 @@ parser.add_argument('-config', help="configuration file *.yml", type=str, requir
 args = parser.parse_args()
 args = yaml.load(open(args.config), Loader=yaml.FullLoader)
 
+# flushing the GPU memory
+if torch.cuda.is_available():
+    torch.cuda.empty_cache()
+
+# creating checkpoint and results folders
 exp_id = "unet_" + datetime.now().strftime("%Y%m%d_%H%M")
-#result_path = os.path.join(args['result_path'], exp_id)
-#model_save_path = os.path.join(args['model_save_path'], exp_id)
-#os.mkdir(result_path)
-#os.mkdir(model_save_path)
-result_path = '.'
-model_save_path = '.'
+ckpt_path = os.path.join(args['ckpt_path'], exp_id)
+result_path = os.path.join(args['results_path'], exp_id)
+os.mkdir(ckpt_path)
+os.mkdir(result_path)
 
 # custom image generator
 image_generator = ImageAugmentation(base_image_path=args['dataloader']['base_image_path'])
@@ -50,10 +56,10 @@ training_loader = DataLoader(dataset, batch_size=args['dataloader']['batch_size'
 criterion = nn.MSELoss()
 optimizer = Adam(model.parameters(), **args['optimizer'])
 
-# initial prediction image
-plt.imshow(dataset[26][0], cmap="gray")
-prediction = model(dataset[26][0].reshape(1, 512, 512))
-plt.imshow(prediction.detach().numpy()[0], cmap="gray")
+model = model.cuda() if torch.cuda.is_available() else model
+
+if torch.cuda.is_available() and not next(model.parameters()).is_cuda:
+    warnings.warn("There is a CUDA device available, but the model was not successfuly sent to it.")
 
 # parameters
 epochs = args['epochs']
@@ -76,5 +82,16 @@ for epoch in range(epochs):
         print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'
               .format(epoch + 1, epochs, i + 1, len(training_loader), loss.item()))
 
+    # save checkpoints
+    if epoch % 50 == 0:
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': LOSS,
+            },
+            os.path.join(ckpt_path, "ckpt_" + str(epoch))
+        )
+
 # saving the model
-torch.save(model.state_dict(), model_save_path)
+torch.save(model.state_dict(), os.path.join(result_path, "model.pt"))
