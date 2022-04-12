@@ -8,19 +8,28 @@ import torch.nn.functional as F
 import torch.nn as nn
 from tqdm import tqdm # progress bar
 from torch.optim import Adam
+from torchvision.utils import save_image
 import argparse, yaml
 from datetime import datetime
-
-# arguments
-parser = argparse.ArgumentParser()
-parser.add_argument('-config', help="configuration file *.yml", type=str, required=True, default='unet-training.yml')
-args = parser.parse_args()
-args = yaml.load(open(args.config), Loader=yaml.FullLoader)
 
 # custom modules
 from model import (StentDataset, # custom dataset
                    ImageAugmentation, # custom image generator
                    UNet) # our PyTorch U-Net model
+
+# arguments
+parser = argparse.ArgumentParser()
+parser.add_argument('-config', help="configuration file *.yml", type=str, required=False, default='unet-training.yml')
+args = parser.parse_args()
+args = yaml.load(open(args.config), Loader=yaml.FullLoader)
+
+exp_id = "unet_" + datetime.now().strftime("%Y%m%d_%H%M")
+#result_path = os.path.join(args['result_path'], exp_id)
+#model_save_path = os.path.join(args['model_save_path'], exp_id)
+#os.mkdir(result_path)
+#os.mkdir(model_save_path)
+result_path = '.'
+model_save_path = '.'
 
 # custom image generator
 image_generator = ImageAugmentation(base_image_path=args['dataloader']['base_image_path'])
@@ -68,5 +77,4 @@ for epoch in range(epochs):
               .format(epoch + 1, epochs, i + 1, len(training_loader), loss.item()))
 
 # saving the model
-model_save_path = os.path.join(args['model_save_path'], "unet_" + datetime.now().strftime("%Y%m%d_%H%M"))
 torch.save(model.state_dict(), model_save_path)
