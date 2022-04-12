@@ -1,5 +1,3 @@
-cuda: True
-
 dataloader:
   base_image_path: data/dataset/base_png
   train:
@@ -24,5 +22,4 @@ epochs: 1
 
 model_save_path: 'saved_models'
 
-  
-
+result_path: 'results'
