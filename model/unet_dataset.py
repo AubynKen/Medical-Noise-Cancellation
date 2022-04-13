@@ -2,7 +2,7 @@ from PIL import Image
 import os
 import numpy as np
 import torch
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 from .input_data_augmentation import pipeline, select
 
 
@@ -28,9 +28,6 @@ class StentDataset(Dataset):
         # convert to numpy array
         input_img = torch.tensor(np.array(input_img), dtype=torch.double)
         target_img = torch.tensor(np.array(target_img), dtype=torch.double)
-        # send to cuda device if available
-        input_img = input_img.cuda() if torch.cuda.is_available() else input_img
-        target_img = target_img.cuda() if torch.cuda.is_available() else target_img
         # crop the image
         delta = 94  # we loose 94 pixels on each side during convolution
         target_image = target_img[delta:-delta, delta:-delta]
