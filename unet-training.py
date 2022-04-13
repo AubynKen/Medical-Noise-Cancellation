@@ -1,6 +1,7 @@
 from PIL import Image
 import os
 import numpy as np
+import json
 import matplotlib.pyplot as plt
 import sys
 import torch
@@ -32,8 +33,10 @@ if torch.cuda.is_available():
 
 # creating checkpoint and results folders
 exp_id = "unet_" + datetime.now().strftime("%Y%m%d_%H%M")
-ckpt_path = os.path.join(args['ckpt_path'], exp_id)
-result_path = os.path.join(args['results_path'], exp_id)
+os.mkdir(os.path.join('exps', exp_id))
+
+ckpt_path = os.path.join('exps', exp_id, args['ckpt_path'])
+result_path = os.path.join('exps', exp_id, args['results_path'])
 os.mkdir(ckpt_path)
 os.mkdir(result_path)
 
@@ -82,6 +85,7 @@ for epoch in range(epochs):
         print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'
               .format(epoch + 1, epochs, i + 1, len(training_loader), loss.item()))
 
+    # TODO: Debug. Somehow, it stops the code after saving an epoch.
     # save checkpoints
     if epoch % 50 == 0:
         torch.save({
@@ -93,5 +97,5 @@ for epoch in range(epochs):
             os.path.join(ckpt_path, "ckpt_" + str(epoch))
         )
 
-# saving the model
+print("Saving final model")
 torch.save(model.state_dict(), os.path.join(result_path, "model.pt"))

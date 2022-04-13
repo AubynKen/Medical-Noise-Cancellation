@@ -1,7 +1,7 @@
 dataloader:
   base_image_path: data/dataset/base_png
   train:
-    n_images: 100
+    n_images: 10
     save_path: data/dataset/train
     generate_input: True
     print_progress: True
@@ -11,7 +11,7 @@ dataloader:
     generate_input: True
     print_progress: True
   
-  batch_size: 1
+  batch_size: 4
   shuffle: True
 
 optimizer: 
