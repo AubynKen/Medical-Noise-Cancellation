@@ -121,7 +121,7 @@ class ImageAugmentation:
             if print_progress and i % (n_images // 100) == 0:
                 progress_percentage += 1
                 print(f"{i}/{n_images} output images generated.  ", end="")
-                print(f"Progress: {progress_percentage}%",  end="\r")
+                print(f"progress : {progress_percentage}%")
             # create random image id
             image_id = str(uuid.uuid4())
             # select base image
@@ -154,7 +154,7 @@ class ImageAugmentation:
             if print_progress and i % (n_images // 100) == 0:
                 progress_percentage += 1
                 print(f"{i}/{n_images} input images generated.  ", end="")
-                print(f"Progress: {progress_percentage}%",  end="\r")
+                print(f"progress : {progress_percentage}%")
             im_orig = Image.open(os.path.join(save_path_y, image))
             im_arr = np.array(im_orig, dtype="float")
             im_arr_noised = im_arr / 3 + np.random.normal(loc=mu, scale=sigma, size=im_arr.shape)

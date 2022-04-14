@@ -25,7 +25,7 @@ class UNet(nn.Module):
         in_dim = input_tensor.size()[2]  # number of pixels per border
         out_dim = output_tensor_like.size()[2]  # number of pixels per border
         delta = (in_dim - out_dim) // 2  # number of pixels to crop per border
-        return input_tensor[..., delta:delta + out_dim, delta:delta + out_dim]
+        return input_tensor[:, delta:delta + out_dim, delta:delta + out_dim]
 
     def __init__(self, in_channels, out_channels):
         super().__init__()
@@ -60,24 +60,26 @@ class UNet(nn.Module):
         x2 = self.conv_down_2(self.max_pool(x1))
         x3 = self.conv_down_3(self.max_pool(x2))
         x4 = self.conv_down_4(self.max_pool(x3))
+
         # decoder
         x = self.up_conv_4_3(x4)
         x3 = self._crop(x3, x)
-        x = torch.cat([x3, x], dim=1)
+        x = torch.cat([x3, x], dim=0)
         x = self.conv_up_3(x)
+
         x = self.up_conv_3_2(x)
         x2 = self._crop(x2, x)
-        x = torch.cat([x2, x], dim=1)
+        x = torch.cat([x2, x], dim=0)
         x = self.conv_up_2(x)
 
         x = self.up_conv_2_1(x)
         x1 = self._crop(x1, x)
-        x = torch.cat([x1, x], dim=1)
+        x = torch.cat([x1, x], dim=0)
         x = self.conv_up_1(x)
 
         x = self.up_conv_1_0(x)
         x0 = self._crop(x0, x)
-        x = torch.cat([x0, x], dim=1)
+        x = torch.cat([x0, x], dim=0)
         x = self.conv_up_0(x)
         x = self.out(x)
 
