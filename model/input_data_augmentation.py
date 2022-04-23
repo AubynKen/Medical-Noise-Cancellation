@@ -1,3 +1,9 @@
+"""
+Program to perform data augmentation on the stent images.
+Author: Pinglei He
+"""
+
+
 from PIL import Image, ImageChops, ImageOps
 import numpy as np
 import random as rd
@@ -6,7 +12,7 @@ from math import ceil
 import uuid  # for random image id generation
 
 # parameters
-pixel_max = 2 ** 16 - 1  # 16 bit unsigned integers
+pixel_max = 2 ** 16 - 1  # We have chosen to store the images in unsigned 16-bit integers format of png files.
 im_size = 512  # 512 * 512 pixels per base
 
 
@@ -22,22 +28,34 @@ def create_pipeline(*operations):
     return pipeline
 
 
-# function for selecting base image
 def select(base_path) -> Image.Image:
-    """Selects a random base image."""
+    """
+    Selects a random base image.
+    :param base_path: the path to the base images without noise
+    """
     base_files = os.listdir(base_path)
     selected = rd.choice(base_files)
     return Image.open(os.path.join(base_path, selected))
 
 
-# functions for applying transformations
 def rotate(img: Image.Image, angle=None) -> Image.Image:
+    """
+    Rotates the image by the specified angle. If no angle is specified, randomly rotate the image.
+    :param img: image file
+    :param angle: the angle of rotation
+    """
     if angle is None:
         angle = rd.uniform(0, 360)
     return img.rotate(angle, fillcolor=pixel_max)
 
 
 def rescale(img: Image.Image, scale=None) -> Image.Image:
+    """
+    Rescales the stent by the specified scale. If no scale is specified, randomly rescale the image between a factor
+    of 0.5 to 1.8.
+    :param img: image file
+    :param scale: the scaling factor of the new image
+    """
     if not scale:
         scale = rd.uniform(0.5, 1.8)
     # shrink the image
@@ -72,6 +90,9 @@ def translate(img: Image.Image, tx=None, ty=None) -> Image.Image:
 
 
 def flip_and_mirror(img: Image.Image) -> Image.Image:
+    """
+    Randomly flip the image in both directions.
+    """
     if np.random.uniform() >= 0.5:  # flip with a probability of 0.5
         img = ImageOps.flip(img)
     if np.random.uniform() >= 0.5:  # mirror with a probability of 0.5
