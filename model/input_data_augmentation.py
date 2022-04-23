@@ -3,7 +3,6 @@ Program to perform data augmentation on the stent images.
 Author: Pinglei He
 """
 
-
 from PIL import Image, ImageChops, ImageOps
 import numpy as np
 import random as rd

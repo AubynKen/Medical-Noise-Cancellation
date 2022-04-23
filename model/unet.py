@@ -1,3 +1,9 @@
+"""
+U-Net model implementation.
+Based on https://arxiv.org/abs/1505.04597
+Author: Pinglei He
+"""
+
 import torch
 import torch.nn as nn
 
@@ -22,6 +28,7 @@ class UNet(nn.Module):
 
     @classmethod
     def _crop(cls, input_tensor, output_tensor_like):
+        # crop the upstream tensor to the size of the downstream tensor
         in_dim = input_tensor.size()[2]  # number of pixels per border
         out_dim = output_tensor_like.size()[2]  # number of pixels per border
         delta = (in_dim - out_dim) // 2  # number of pixels to crop per border
@@ -33,12 +40,14 @@ class UNet(nn.Module):
         self.out_channels = out_channels
         self.max_pool = nn.MaxPool2d(kernel_size=2, stride=2)
 
+        # upstream convolution layers / encoder (i.e. left part of the U-Net)
         self.conv_down_0 = self._conv(self.in_channels, 64)
         self.conv_down_1 = self._conv(64, 128)
         self.conv_down_2 = self._conv(128, 256)
         self.conv_down_3 = self._conv(256, 512)
         self.conv_down_4 = self._conv(512, 1024)
 
+        # downstream convolution layers / decoder (i.e. right part of the U-Net)
         self.up_conv_4_3 = self._up_conv(1024, 512)
         self.conv_up_3 = self._conv(1024, 512)
 

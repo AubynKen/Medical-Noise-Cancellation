@@ -1,3 +1,8 @@
+"""
+Implementation of a pytorch dataset for training the U-Net model.
+Author: Pinglei He
+"""
+
 from PIL import Image
 import os
 import numpy as np
