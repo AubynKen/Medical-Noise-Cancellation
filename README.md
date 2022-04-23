@@ -3,8 +3,6 @@ The project is a second year (equivalent to senior year of college in the US sys
 The goal of the project is to use data provided by General Electric Healthcare France (a partner of the signal processing lab of CentraleSupelec) to achieve of proof-of-concept of denosing medical X-ray image scans of patients during operation with stents, and comprarsison of the performance with othre traditional image denoising techniques.
 
 ## File structure
-- `archived notebooks`: contains the archived notebooks of the project
+- `archives`: contains the archived notebooks and models of the project
 - `data`: contains the data used for the project
-- `metz-test-archive`: contains files used for training in the data center of CentraleSupelec Metz campus
-
-- `model`: contains the u-net model used for denoising
+- `model`: contains the u-net model implemented in the project
