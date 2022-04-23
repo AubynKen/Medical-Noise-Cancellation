@@ -6,7 +6,7 @@ signals and systems (L2S) of the CentraleSupelec engineering school) to achieve 
 X-ray video returns of patients during operations with stents, and comparison of the performance obtained with the 
 current state of the art of non-neural-network based image denoising techniques such as BM3D.
 
-## File structure
+## Folder structures
 - `archives`: contains the archived notebooks and models of the project
 - `data`: contains the data used for the project
 - `model`: contains the u-net model implemented in the project

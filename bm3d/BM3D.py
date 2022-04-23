@@ -16,14 +16,14 @@ cv2.setUseOptimized(True)
 # Parameters initialization
 sigma = 25
 Threshold_Hard3D = 2.7*sigma           # Threshold for Hard Thresholding
-First_Match_threshold = 2500             # 用于计算block之间相似度的阈值
-Step1_max_matched_cnt = 16              # 组最大匹配的块数
-Step1_Blk_Size = 8                     # block_Size即块的大小，8*8
+First_Match_threshold = 2500             # used for computing similarity matching thresholds
+Step1_max_matched_cnt = 16              # maximum matched block count
+Step1_Blk_Size = 8                     # block_Size
 Step1_Blk_Step = 3                      # Rather than sliding by one pixel to every next reference block, use a step of Nstep pixels in both horizontal and vertical directions.
-Step1_Search_Step = 3                   # 块的搜索step
+Step1_Search_Step = 3                   # searching step for blocks
 Step1_Search_Window = 39                # Search for candidate matching blocks in a local neighborhood of restricted size NS*NS centered
 
-Second_Match_threshold = 400           # 用于计算block之间相似度的阈值
+Second_Match_threshold = 400
 Step2_max_matched_cnt = 32
 Step2_Blk_Size = 8
 Step2_Blk_Step = 3
