@@ -1,1 +1,1 @@
-from .PNSR import PNSR
+from .PSNR import PSNR
