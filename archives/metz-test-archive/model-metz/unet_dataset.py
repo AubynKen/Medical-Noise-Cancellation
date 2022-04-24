@@ -18,7 +18,7 @@ class StentDataset(Dataset):
     def __len__(self):
         return len(self.input_files)
 
-    def _getitem_offline(self, idx):
+    def __getitem__(self, idx):
         # files corresponding to the index
         input_file = self.input_files[idx]
         target_file = self.target_files[idx]
@@ -41,9 +41,6 @@ class StentDataset(Dataset):
         input_img = input_img.cuda() if torch.cuda.is_available() else input_img
         target_img = target_img.cuda() if torch.cuda.is_available() else target_img
         return input_img, target_img
-
-    def __getitem__(self, idx):
-        return self._getitem_offline(idx)
 
 
 class StentOnlineDataset(Dataset):
