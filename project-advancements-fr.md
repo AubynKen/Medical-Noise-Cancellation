@@ -69,24 +69,27 @@ d’apprentissage au fur et à mesure que la perte se stabilise.
 Pour pouvoir évaluer la qualité de notre dé-bruitage, nous avons utilisé comme métrique le PSNR (Peak Signal to Noise
 Ratio). 
 
-For next time: 
+---
+## Todo List
 
-todo: implement other more classic denoising methods (or find modules) (Done for B3DM 19 April)
+### Done:
 
-todo: implement program which, given two input images, give a metric/evaluation on the qualities of the denoising algorithm (Done 21 April)
+- todo: implement BM3D(Evi) (Done 19 April)
+  (Found implementation on GitHub)
 
-todo: figure out how to make our model work on Google Colab without re-uploading the files every time (Done 21 april)
+- todo: implement program which, given two input images, give the PSNR of the denoising algorithm (Evi) (Done 21 April) (Found implementation on GitHub)
 
-todo: add validation set and print validation loss during training (Done)
+- todo: figure out how to make our model work on Google Colab without re-uploading the files every time (Evi) (Done 21 april) (Connect to Google Drive)
 
-todo: add pytorch learning-rate decay  (Done 23 April)
+- todo: add validation set and print validation loss during training (Evi) (Done)
 
+- todo: use learning-rate decay when there's a plateau of the loss (Done 23 April) (PyTorch has an implementation of an optimization scheduler called "ReduceLROnPlateau")
 
 
 ---
-if we have time:
+Try to do before the meeting on the 28th April:
 
-todo: add implementation of LGPCA (Yassine Adele)
+todo: add implementation of LGPCA (Yassine, Adele)
 
 todo: find and add implementations of other evaluation functions than PSNR (Jean)
 
@@ -103,11 +106,11 @@ todo: try other models than just U-Net, find open implementations, modify them t
 Next rdv with the professor: 28th of this week
 
 
-todo: create a dataset with gaussian noise with random standard-deviation (currently it is fixed).
+Other less urgent things:
 
-todo: (to discuss in reu) make the depth of the U-net a parameter that's adjustable
+todo: make the depth of the U-net a parameter that's adjustable
 
-todo: use padding to avoid losing pixels on the border
+todo: use padding to avoid losing pixels on the border (Evi)
 
 todo: add overlay of actual image scan instead of only white noise
 
