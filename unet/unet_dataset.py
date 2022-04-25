@@ -82,49 +82,11 @@ class StentOnlineDataset(Dataset):
         # convert to pytorch tensors
         target_tensor = torch.tensor(y_arr, dtype=torch.double)
         input_tensor = torch.tensor(x_arr, dtype=torch.double)
-        return input_tensor, target_tensor
-
-class StentOnlineDataset(Dataset):
-    """
-    Dataset for online training.
-    Generates input and output images for the unet during training without taking extra space in disk.
-    """
-
-    # parameters of the noise, hardcoded for now
-    mu = 15802.056997617085  # mean
-    sigma = 5595.862325808515  # standard deviation
-
-    def __init__(self, n_images: int, base_image_path: str):
-        self.n_images = n_images
-        self.select_base_img = lambda: select(base_image_path)
-
-    def __len__(self):
-        return self.n_images
-
-    def __getitem__(self, idx):
-        # check if the index is valid
-        if idx >= self.n_images:
-            raise IndexError("Index out of range")
-        # get the base image
-        base_img = self.select_base_img()
-        # transformation
-        y_img = pipeline(base_img)  # apply the pipeline to the base image
-        y_arr = np.array(y_img, dtype="float")  # convert to numpy array
-        # add noise to create the input image
-        x_arr = y_arr / 3 + np.random.normal(loc=self.mu, scale=self.sigma, size=y_arr.shape)
-        # normalization
-        y_arr, x_arr = y_arr / 2 ** 16, x_arr / 2 ** 16
-        # crop the target image to fit the correct output size
-        delta = 94  # we loose 94 pixels on each side during convolution
-        y_arr = y_arr[delta:-delta, delta:-delta]
-        # convert to pytorch tensors
-        target_tensor = torch.tensor(y_arr, dtype=torch.double)
-        input_tensor = torch.tensor(x_arr, dtype=torch.double)
         # unsqueeze the tensor
         target_tensor = target_tensor.unsqueeze(0)
         input_tensor = input_tensor.unsqueeze(0)
         # send to cuda if cuda available
         if torch.cuda.is_available():
-          target_tensor = target_tensor.cuda()
-          input_tensor = input_tensor.cuda()
+            target_tensor = target_tensor.cuda()
+            input_tensor = input_tensor.cuda()
         return input_tensor, target_tensor
