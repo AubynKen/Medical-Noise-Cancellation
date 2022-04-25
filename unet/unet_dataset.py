@@ -53,8 +53,9 @@ class StentOnlineDataset(Dataset):
     """
 
     # parameters of the noise, hardcoded for now
-    mu = 15802.056997617085  # mean
-    sigma = 5595.862325808515  # standard deviation
+    mu = 0  # mean of noise, gaussian noise centered at zero
+    base_std = 1398.96558145  # standard deviation of un-cropped stent image i.e. CDStent.png in 16 bits
+    sigma = 4 * base_std  # std of noise, arbitrary choice
 
     def __init__(self, n_images: int, base_image_path: str):
         self.n_images = n_images
