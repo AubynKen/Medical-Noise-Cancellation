@@ -9,8 +9,7 @@ current state of the art of non-neural-network based image denoising techniques 
 ## Folder / module structures
 - `archives`: contains the archived notebooks and models of the project
 - `data`: contains the data used for the project
-- `model`: contains the u-net model implemented in the project
-- `unet_cuda`: cotnains a modified version of out u-net implementation that's suited for batch training on GPU
+- `unet`: contains our u-net implementation that's suited for batch training on GPU
 - `runs`: contains evaluation record during training on Google Colab
 - `result_images`: contains the results images of the UNet during training
 - `evaluation`: contains functions for evaluating denoising performances
