@@ -19,5 +19,6 @@ current state of the art of non-neural-network based image denoising techniques 
 In the order in which they are created:
 - `data-augmentation.ipynb`: data augmentation with test and visualizations
 - `unet-training.ipynb`: first steps of training of the UNet model using augmented data
-- `unet-training-online.ipynb`: training of the UNet model using augmented data generated during training to avoid 
+- `unet-training-online.ipynb`: training of the UNet model using augmented data generated during training to avoid
+- `project-advancements-fr.md`: project advancements and meeting reports in French
 taking up too much space on the hard-drive.
