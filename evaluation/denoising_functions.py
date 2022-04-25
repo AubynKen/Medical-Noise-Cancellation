@@ -1,6 +1,6 @@
 """
 File for storing traditional  non-neural network based de-noising functions for performance comparison.
-Author:
+Author: Jean Arbache
 """
 
 def denoise_median(noisy_img, kernel_size):

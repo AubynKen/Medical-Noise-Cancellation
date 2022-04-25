@@ -1,6 +1,6 @@
 """
 File for evaluations functions used to evaluate the quality of denoising algorithms.
-Author: Pinglei He
+Author: Pinglei He, Kaiao Wen, Yassine
 Credit: the PSNR functions is heavily based on the Python implementation of PSNR by Huang Liu
 """
 
