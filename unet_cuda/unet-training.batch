@@ -1,0 +1,11 @@
+#!/bin/bash 
+
+#SBATCH --job-name=unet
+#SBATCH --nodes=1
+#SBATCH --partition=gpu_prod_long
+#SBATCH --time=8:00:00
+#SBATCH --output=logslurms/unet/slurm-%j.out
+#SBATCH --error=logslurms/unet/slurm-%j.err
+
+mkdir -p logslurms/unet
+python3 unet-training.py --yaml_config unet-training.yaml
