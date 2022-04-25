@@ -69,7 +69,7 @@ d’apprentissage au fur et à mesure que la perte se stabilise.
 Pour pouvoir évaluer la qualité de notre dé-bruitage, nous avons utilisé comme métrique le PSNR (Peak Signal to Noise
 Ratio). 
 
-
+For next time: 
 
 todo: implement other more classic denoising methods (or find modules) (Done for B3DM 19 April)
 
@@ -83,6 +83,26 @@ todo: add pytorch learning-rate decay  (Done 23 April)
 
 
 
+---
+if we have time:
+
+todo: add implementation of LGPCA (Yassine Adele)
+
+todo: find and add implementations of other evaluation functions than PSNR (Jean)
+
+todo: use traditional denoising function before feeding the model (mean / median of window of pixels, gaussian kernel) (Jean)
+
+todo: try padding the input image (Evi)
+
+todo: try to train the model with different std of the gaussian noise (Evi)
+
+todo: try other models than just U-Net, find open implementations, modify them to fit our needs (single-channel grayscale image) and push to github repo:
+(https://paperswithcode.com/sota/image-denoising-on-sidd) (Evi)
+
+
+Next rdv with the professor: 28th of this week
+
+
 todo: create a dataset with gaussian noise with random standard-deviation (currently it is fixed).
 
 todo: (to discuss in reu) make the depth of the U-net a parameter that's adjustable
@@ -91,5 +111,4 @@ todo: use padding to avoid losing pixels on the border
 
 todo: add overlay of actual image scan instead of only white noise
 
-todo: try other models than just U-Net, find open implementations, modify them to fit our needs (single-channel grayscale image) and push to github repo:
-(https://paperswithcode.com/sota/image-denoising-on-sidd)
+

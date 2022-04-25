@@ -1,7 +1,7 @@
 """
-Calculation of the Peak Signal-to-Noise Ratio (PSNR).
+File for evaluations functions used to evaluate the quality of denoising algorithms.
 Author: Pinglei He
-Heavily based on the Python implementation of PSNR by Huang Liu
+Credit: the PSNR functions is heavily based on the Python implementation of PSNR by Huang Liu
 """
 
 import math
