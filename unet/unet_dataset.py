@@ -64,7 +64,7 @@ class StentOnlineDataset(Dataset):
     def __len__(self):
         return self.n_images
 
-    def __getitem__(self, idx):
+    def _get_numpy_arr_after_pipeline(self, idx):
         # check if the index is valid
         if idx >= self.n_images:
             raise IndexError("Index out of range")
@@ -73,8 +73,11 @@ class StentOnlineDataset(Dataset):
         # transformation
         y_img = pipeline(base_img)  # apply the pipeline to the base image
         y_arr = np.array(y_img, dtype="float")  # convert to numpy array
+        return y_arr
+
+    def _generate_training_data(self, y_arr, std_factor=4):
         # add noise to create the input image
-        x_arr = y_arr / 3 + np.random.normal(loc=self.mu, scale=self.sigma, size=y_arr.shape)
+        x_arr = y_arr / 3 + np.random.normal(loc=self.mu, scale=std_factor * self.base_std, size=y_arr.shape)
         # normalization
         y_arr, x_arr = y_arr / 2 ** 16, x_arr / 2 ** 16
         # crop the target image to fit the correct output size
@@ -90,4 +93,26 @@ class StentOnlineDataset(Dataset):
         if torch.cuda.is_available():
             target_tensor = target_tensor.cuda()
             input_tensor = input_tensor.cuda()
+        return input_tensor, target_tensor
+
+    def __getitem__(self, idx):
+        y_arr = self._get_numpy_arr_after_pipeline(idx)
+        input_tensor, target_tensor = self._generate_training_data(y_arr)
+        return input_tensor, target_tensor
+
+
+class StentOnlineDatasetRandomSTD(StentOnlineDataset):
+
+    def __init__(self, n_images: int, base_image_path: str, std_range: [float, float]):
+        super().__init__(n_images, base_image_path)
+        min_std, max_std = std_range
+        if min(min_std, max_std) < 0:
+            raise ValueError("std_range must be positive")
+        self.min_std = min_std
+        self.max_std = max_std
+
+    def __getitem__(self, idx):
+        y_arr = self._get_numpy_arr_after_pipeline(idx)
+        std_factor = np.random.uniform(self.min_std, self.max_std)
+        input_tensor, target_tensor = self._generate_training_data(y_arr, std_factor)
         return input_tensor, target_tensor
