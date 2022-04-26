@@ -102,14 +102,23 @@ class StentOnlineDataset(Dataset):
 
 
 class StentOnlineDatasetRandomSTD(StentOnlineDataset):
+    """
+    Dataset for online training with random noise standard deviation.
+    """
 
     def __init__(self, n_images: int, base_image_path: str, std_range: [float, float]):
+        """
+        :param n_images: number of images to generate
+        :param base_image_path: path to the base image
+        :param std_range: range of standard deviations factor. A factor of one means that the noise has the same std as
+        the base image.
+        """
         super().__init__(n_images, base_image_path)
-        min_std, max_std = std_range
-        if min(min_std, max_std) < 0:
+        min_std_factor, max_std_factor = std_range
+        if min(min_std_factor, max_std_factor) < 0:
             raise ValueError("std_range must be positive")
-        self.min_std = min_std
-        self.max_std = max_std
+        self.min_std = min_std_factor
+        self.max_std = max_std_factor
 
     def __getitem__(self, idx):
         y_arr = self._get_numpy_arr_after_pipeline(idx)
