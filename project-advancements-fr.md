@@ -101,14 +101,15 @@ todo: try padding the input image (Evi)
 
 todo: try to train the model with different std of the gaussian noise (Evi)
 
-todo: try other models than just U-Net, find open implementations, modify them to fit our needs (single-channel grayscale image) and push to github repo:
-(https://paperswithcode.com/sota/image-denoising-on-sidd) (Evi)
-
 
 Next rdv with the professor: 28th of this week
 
+---
 
-Other less urgent things:
+Other things to do:
+
+todo: try other models than just U-Net, find open implementations, modify them to fit our needs (single-channel grayscale image) and push to github repo:
+(https://paperswithcode.com/sota/image-denoising-on-sidd)
 
 todo: make the depth of the U-net a parameter that's adjustable
 
