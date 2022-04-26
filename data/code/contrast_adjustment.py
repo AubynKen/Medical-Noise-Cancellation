@@ -8,8 +8,8 @@ import numpy as np
 from PIL import Image
 import os
 
-base_path = "../../data/dataset/base_png"
-files = os.listdir("../../data/dataset/base_png")
+base_path = "../dataset/base_png"
+files = os.listdir("../dataset/base_png")
 
 for file in files:
     im = Image.open(os.path.join(base_path, file))
