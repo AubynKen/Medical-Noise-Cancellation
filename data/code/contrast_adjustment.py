@@ -1,4 +1,7 @@
 """
+Contrast adjustment
+Author: Pinglei He
+
 The noisy images and the base images do not have the same color contrast because the normalization step during the
 conversion from raw format to png format is done after image normalization. Here we create base images with the same
 contrast as the noisy images, so that the base images and noisy images have the same mean.

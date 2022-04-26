@@ -1,8 +1,14 @@
+"""
+Creation of noisy images.
+Author: Pinglei He
+"""
+
+
 import os
 import numpy as np
 from PIL import Image
 
-clean_images = os.listdir("data/dataset/base_png_adjusted")
+clean_images = os.listdir("../dataset/base_png_adjusted")
 
 for image in clean_images:
     im = Image.open("data/dataset/base_png_adjusted/" + image)
