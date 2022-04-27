@@ -39,6 +39,8 @@ et les donne à notre modèle. Nous avons d’abord utilisé un dataset de 1000 
 donne. (Car les données prennent très vite beaucoup de place en mémoire disque), en 10 époques. 
 
 ### Entraînement du modèle
+<img src="./result_images/notebook_images/first_try_loss.jpeg" alt="first_try_loss" width="50%">
+
 Nous remarquons que la fonction perte ne diminue quasiment plus au bout de 1-2 époques avec un rythme d’apprentissage
 (learning rate) de 0,001. (Et augmente même un peu pour la fonction perte pour les données de validation) Nous avons
 conclu qu’il y a en fait deux problèmes, le premier est que le rythme d’apprentissage n’est pas assez grand, et qu’il
@@ -56,14 +58,8 @@ la vitesse d’entraînement du modèle. Nous avons donc implémenté un Dataset
 où nous les demandons lors de l’entraînement. (cf. la méthode get de la classe OnlineDataset) Cela fait que chaque
 batch de données n’est utilisé qu’une fois pour l’entraînement. 
 
-## Learning rate decay
-Pour le problème de rythme d’apprentissage trop important, une approche serait évidemment de diminuer directement
-le taux d’apprentissage manuellement à chaque fois que nous constatons un plateau de perte (loss plateau), c’est-à-dire
-lorsque la fonction perte sur le jeu de données de validation se stabilise cesse de diminuer. Au lieu de le faire à la 
-main et observer de temps en temps la courbe de perte, nous avons décidé de faire une approche plus automatisée. 
-
-Nous avons utilisé un planificateur de rythme d’apprentissage (learning-rate scheduler) pour diminuer le taux
-d’apprentissage au fur et à mesure que la perte se stabilise. 
+## AdamW + OneCycleLR
+todo: Write about this method
 
 ## Évaluation du modèle
 Pour pouvoir évaluer la qualité de notre dé-bruitage, nous avons utilisé comme métrique le PSNR (Peak Signal to Noise
@@ -99,14 +95,15 @@ todo: try padding the input image (Evi)
 
 todo: try to train the model with different std of the gaussian noise (Evi)
 
-todo: try other models than just U-Net, find open implementations, modify them to fit our needs (single-channel grayscale image) and push to github repo:
-(https://paperswithcode.com/sota/image-denoising-on-sidd) (Evi)
-
 
 Next rdv with the professor: 28th of this week
 
+---
 
-Other less urgent things:
+Other things to do:
+
+todo: try other models than just U-Net, find open implementations, modify them to fit our needs (single-channel grayscale image) and push to github repo:
+(https://paperswithcode.com/sota/image-denoising-on-sidd)
 
 todo: make the depth of the U-net a parameter that's adjustable
 

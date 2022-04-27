@@ -7,7 +7,7 @@ https://github.com/liuhuang31/BM3D-Denoise/blob/master/BM3D.py
 """
 
 import cv2
-import PSNR
+from .evaluation_functions import PSNR
 import numpy
 
 cv2.setUseOptimized(True)
