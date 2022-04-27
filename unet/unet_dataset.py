@@ -106,7 +106,7 @@ class StentOnlineDatasetRandomSTD(StentOnlineDataset):
     Dataset for online training with random noise standard deviation.
     """
 
-    def __init__(self, n_images: int, base_image_path: str, std_range: [float, float]):
+    def __init__(self, n_images: int, base_image_path: str, std_range=(4, 4)):
         """
         :param n_images: number of images to generate
         :param base_image_path: path to the base image
