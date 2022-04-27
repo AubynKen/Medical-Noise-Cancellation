@@ -39,7 +39,7 @@ et les donne à notre modèle. Nous avons d’abord utilisé un dataset de 1000 
 donne. (Car les données prennent très vite beaucoup de place en mémoire disque), en 10 époques. 
 
 ### Entraînement du modèle
-<img src="./result_images/notebook_images/first_try_loss.jpeg" alt="first_try_loss" width="50%">
+<img src="./notebook_images/first_training_losses.png" alt="first_try_loss" width="50%">
 
 Nous remarquons que la fonction perte ne diminue quasiment plus au bout de 1-2 époques avec un rythme d’apprentissage
 (learning rate) de 0,001. (Et augmente même un peu pour la fonction perte pour les données de validation) Nous avons
