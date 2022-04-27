@@ -6,6 +6,8 @@ The original images were obtained from 8 bit images. (The original images can be
 data/dataset/base_png_8bit). Therefore, the images 1, 2, 3 have very bad quality and we can visualize the
 quantification of their pixels. This script is used to use the image 7, 8, 9, converted into 16 bit images, to
 recreate images 1 to 6 with better quality.
+
+The unadjusted images are kept in the folder data/dataset/base_png_8bit.
 """
 
 import numpy as np

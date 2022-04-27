@@ -125,3 +125,32 @@ class StentOnlineDatasetRandomSTD(StentOnlineDataset):
         std_factor = np.random.uniform(self.min_std, self.max_std)
         input_tensor, target_tensor = self._generate_training_data(y_arr, std_factor)
         return input_tensor, target_tensor
+
+
+class MaskOnlineDataset(StentOnlineDataset):
+    def __init__(self, n_images: int, base_image_path: str):
+        super().__init__(n_images, base_image_path)
+        self.n_images = n_images
+        self.select_base_img = lambda: select(base_image_path)
+
+    def __getitem__(self, idx):
+        input_arr = self._get_numpy_arr_after_pipeline(idx)
+        # create mask
+        max_pixel = np.max(input_arr)
+        mask_bool = input_arr < max_pixel
+        mask = np.zeros(mask_bool.shape)
+        mask[mask_bool] = 1
+        # crop mask
+        delta = 94  # we loose 94 pixels on each side during convolution
+        mask = mask[delta:-delta, delta:-delta]
+        # convert to pytorch tensors
+        input_tensor = torch.tensor(input_arr, dtype=torch.double)
+        mask_tensor = torch.tensor(mask, dtype=torch.double)
+        # unsqueeze the tensor
+        input_tensor = input_tensor.unsqueeze(0)
+        mask_tensor = mask_tensor.unsqueeze(0)
+        # send to cuda if cuda available
+        if torch.cuda.is_available():
+            input_tensor = input_tensor.cuda()
+            mask_tensor = mask_tensor.cuda()
+        return input_tensor, mask_tensor
