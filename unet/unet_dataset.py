@@ -126,7 +126,6 @@ class StentOnlineDatasetRandomSTD(StentOnlineDataset):
         input_tensor, target_tensor = self._generate_training_data(y_arr, std_factor)
         return input_tensor, target_tensor
 
-
 class MaskOnlineDataset(StentOnlineDataset):
     def __init__(self, n_images: int, base_image_path: str):
         super().__init__(n_images, base_image_path)
