@@ -136,65 +136,65 @@ We implemented PSNR we haven't done it yet.
 
 Le modèle reconnaît le stente et ne fait pas juste un raisonnement locale. 
 
-![img.png](notebook_images/a_input.png)
-![img.png](notebook_images/a_output.png)
-![img.png](notebook_images/a_target.png)
-
+<img src="notebook_images/a_input.png" alt="drawing" width="30%"/>
+<img src="notebook_images/a_output.png" alt="drawing" width="30%"/>
+<img src="notebook_images/a_target.png" alt="drawing" width="30%"/>
 
 ---
 
 Essayez de trouver lequel est le target et lequel est l’output.
 
-![img.png](notebook_images/b_input.png)
-![img.png](notebook_images/b_output.png)
-![img.png](notebook_images/b_target.png)
+<img src="notebook_images/b_input.png" alt="drawing" width="30%"/>
+<img src="notebook_images/b_output.png" alt="drawing" width="30%"/>
+<img src="notebook_images/b_target.png" alt="drawing" width="30%"/>
 
 ---
 
 Un peu plus dûre…
 
-![img.png](notebook_images/c_input.png)
-![img.png](notebook_images/c_target.png)
-![img.png](notebook_images/c_output.png)
+<img src="notebook_images/c_input.png" alt="drawing" width="30%"/>
+<img src="notebook_images/c_target.png" alt="drawing" width="30%"/>
+<img src="notebook_images/c_output.png" alt="drawing" width="30%"/>
 
 ---
 
 Et lorsque le stent est très peu contrasté et avec une variance de bruit très fort : 
 
-<img src="data/results/bm3d/base4.png" alt="drawing" width="30%"/>
-<img src="data/results/bm3d/base5.png" alt="drawing" width="30%"/>
-<img src="data/results/bm3d/base6.png" alt="drawing" width="30%"/>
+<img src="notebook_images/d_input.png" alt="drawing" width="30%"/>
+<img src="notebook_images/d_output.png" alt="drawing" width="30%"/>
+<img src="notebook_images/d_target.png" alt="drawing" width="30%"/>
+
 
 ---
 ## Todo List
 
 ### Done:
 
-- todo: implement BM3D and visualize the outputs (Evi) (Done 19 April)
+- todo: implement BM3D and visualize the outputs (Pinglei) (Done 19 April)
   (Found implementation on GitHub)
 
-- todo: implement program which, given two input images, give the PSNR of the denoising algorithm (Evi) (Done 21 April) (Found implementation on GitHub)
+- todo: implement program which, given two input images, give the PSNR of the denoising algorithm (Pinglei) (Done 21 April) (Found implementation on GitHub)
 
-- todo: figure out how to make our model work on Google Colab without re-uploading the files every time (Evi) (Done 21 april) (Connect to Google Drive)
+- todo: figure out how to make our model work on Google Colab without re-uploading the files every time (Pinglei) (Done 21 april) (Connect to Google Drive)
 
-- todo: add validation set and print validation loss during training (Evi) (Done)
+- todo: add validation set and print validation loss during training (Pinglei) (Done)
 
-- todo: use learning-rate decay when there's a plateau of the loss (Done 23 April) (PyTorch has an implementation of an optimization scheduler called "ReduceLROnPlateau")
+- todo: use learning-rate decay when there's a plateau of the loss (Pinglei) (Done 23 April) (PyTorch has an implementation of an optimization scheduler called "ReduceLROnPlateau")
 
-- todo: find better learning rate schedulers (Evi) (Done 27 April) 
+- todo: find better learning rate schedulers (Pinglei) (Done 27 April) 
 (Used OneCycleLR, CosineAneealingWarmRestarts)
 
 
 ---
 Try to do before the meeting on the 28th April:
 
-todo: add implementation of LPGPCA (Yassine, Adele)
+todo: add implementation of LPGPCA (Yassine, Kaiao)
 
-todo: find and add implementations of other evaluation functions than PSNR (Jean)
+todo: find and add implementations of other evaluation functions than PSNR (Jean) (Done)
 
-todo: use traditional denoising function before feeding the model (mean / median of window of pixels, gaussian kernel) (Jean)
+todo: use traditional denoising function before feeding the model (mean / median of window of pixels, gaussian kernel) (Jean) (Done)
 
-todo: try to train the model with different std of the gaussian noise (Evi) (Done 25 April)
+todo: try to train the model with different std of the gaussian noise (Pinglei) (Done 25 April)
 
 
 Next rdv with the professor: 28th of this week
@@ -208,7 +208,7 @@ todo: try other models than just U-Net, find open implementations, modify them t
 
 todo: make the depth of the U-net a parameter that's adjustable
 
-todo: use padding to avoid losing pixels on the border (Evi)
+todo: use padding to avoid losing pixels on the border (Pinglei)
 
 todo: add overlay of actual image scan instead of only white noise
 
