@@ -11,7 +11,7 @@ __pycache__/*
 weights
 
 # scratch files for practicing
-data/scratch/
+*scratch.*
 
 # training data
 data/dataset/train
