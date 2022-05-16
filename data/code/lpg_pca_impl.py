@@ -1,7 +1,10 @@
+# credit: code based on https://github.com/JacobiSong/lpg-pca
+
 import numpy as np
 from multiprocessing import Pool
 import os
 from sklearn.feature_extraction import image
+from PIL import Image
 
 
 def _denoise_pixel(img, x, y, K, L, sig):
@@ -10,10 +13,10 @@ def _denoise_pixel(img, x, y, K, L, sig):
 
     # def mse(block):
     #     return np.mean((block - target)**2)
-    halfK = K//2
-    halfL = L//2
+    halfK = K // 2
+    halfL = L // 2
     # Dimension of each block vector (= number of rows in the training matrix)
-    m = K**2
+    m = K ** 2
 
     # Number of columns in the training matrix
     n = m * 8 + 1
@@ -26,7 +29,7 @@ def _denoise_pixel(img, x, y, K, L, sig):
     rng = halfL - halfK
     blocks = image.extract_patches(
         img[max(K, x - rng) - halfK: min(x + rng + 1, dim2 - K) + halfK,
-            max(K, y - rng) - halfK: min(y + rng + 1, dim1 - K) + halfK], (K, K)
+        max(K, y - rng) - halfK: min(y + rng + 1, dim1 - K) + halfK], (K, K)
     ).reshape(-1, K, K)
 
     # Sort by MSE
@@ -35,27 +38,27 @@ def _denoise_pixel(img, x, y, K, L, sig):
 
     # Construct the training matrix with the target and the best blocks reshaped into columns.
     trainingMatrix = blocks[sortIndexes].reshape(
-        blocks.shape[0], m, order='F').swapaxes(1, 0)[:, :n+1]
+        blocks.shape[0], m, order='F').swapaxes(1, 0)[:, :n + 1]
 
     mean = trainingMatrix.mean(axis=1)
     trainingMatrix = trainingMatrix - mean.reshape(m, 1)
-    noiseCov = sig**2 * np.eye(m, m)
-    inputCov = (trainingMatrix @ trainingMatrix.T)/n
+    noiseCov = sig ** 2 * np.eye(m, m)
+    inputCov = (trainingMatrix @ trainingMatrix.T) / n
     eigvectors = np.linalg.eig(inputCov)[1]
     PX = eigvectors.T
 
     transInput = PX @ trainingMatrix
 
     transNoiseCov = PX @ noiseCov @ PX.T
-    transInputCov = (transInput @ transInput.T)/n
+    transInputCov = (transInput @ transInput.T) / n
     transDenoisedOutCov = np.maximum(
         np.zeros(transInputCov.shape), transInputCov - transNoiseCov)
 
     shrinkCoef = np.diag(transDenoisedOutCov) / \
-        (np.diag(transDenoisedOutCov) + np.diag(transInputCov))
+                 (np.diag(transDenoisedOutCov) + np.diag(transInputCov))
     Y1 = transInput[:, 0] * shrinkCoef
     X1 = PX.T @ Y1 + mean
-    return X1[m//2]
+    return X1[m // 2]
 
 
 def _denoise_row(img, x, left_y, right_y, K, L, sig, log):
@@ -83,7 +86,8 @@ def _denoise_image(img, K, L, sig, log):
 
     # parallel
     progress = [pool.apply_async(_denoise_row, (img, x, halfK, height - halfK, K, L,
-                                                sig, log,), callback=denoiseRowCallback) for x in range(halfK, width - halfK)]
+                                                sig, log,), callback=denoiseRowCallback) for x in
+                range(halfK, width - halfK)]
     for each in progress:
         each.wait()
 
@@ -109,7 +113,7 @@ def denoise(noised_img, sig1, K=3, L=21, log=False):
 
     stage1 = _denoise_image(noised_img, K, L, sig1, log)
 
-    sig2 = 0.35 * np.sqrt(sig1 - np.mean((stage1 - noised_img)**2))
+    sig2 = 0.35 * np.sqrt(sig1 - np.mean((stage1 - noised_img) ** 2))
     if log:
         print('sig2 = ', sig2)
 
@@ -118,3 +122,17 @@ def denoise(noised_img, sig1, K=3, L=21, log=False):
     # pool.terminate()
 
     return stage2
+
+
+if __name__ == "__main__":
+    path_noisy_images = "../dataset/noisy_png"
+    for filename in os.listdir(path_noisy_images):
+        img_path = os.path.join(path_noisy_images, filename)
+        im = Image.open(img_path)
+        im_arr = np.array(im, dtype="float")
+        base_std = 1398.96558145
+        std = 4 * base_std
+        im_arr_denoised = denoise(im_arr, sig1=std, log=True)
+        im_denoised = Image.fromarray(im_arr_denoised.astype("uint16"))
+        im_denoised.save(os.path.join("../results/lpgpca", filename))
+        break

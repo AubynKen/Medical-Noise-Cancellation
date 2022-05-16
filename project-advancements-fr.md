@@ -4,8 +4,6 @@
 This file is a markdown file that track the advancement of the project. Since the project members communicate in French, 
 the rest of the file is written in French.
 
-## Avancements depuis la réunion du 04 Mars 2022:
-
 ### Augmentation de la base de données
 Nous avons d’abord fini avec l’augmentation des données la dernière fois, donc on a pu trouver une méthode qui permet 
 d’engendrer des images avec des rotations, contrastes, tailles et positions aléatoires. Nous avons engendré des images 
@@ -166,6 +164,7 @@ Et lorsque le stent est très peu contrasté et avec une variance de bruit très
 
 
 ---
+
 ## Todo List
 
 ### Done:
@@ -188,7 +187,7 @@ Et lorsque le stent est très peu contrasté et avec une variance de bruit très
 ---
 Try to do before the meeting on the 28th April:
 
-todo: add implementation of LPGPCA (Yassine, Kaiao)
+todo: add implementation of LPGPCA (Yassine, Kaiao) (Done)
 
 todo: find and add implementations of other evaluation functions than PSNR (Jean) (Done)
 
@@ -197,18 +196,17 @@ todo: use traditional denoising function before feeding the model (mean / median
 todo: try to train the model with different std of the gaussian noise (Pinglei) (Done 25 April)
 
 
-Next rdv with the professor: 28th of this week
 
----
 
-Other things to do:
+
+Random ideas : 
 
 todo: try other models than just U-Net, find open implementations, modify them to fit our needs (single-channel grayscale image) and push to github repo:
 (https://paperswithcode.com/sota/image-denoising-on-sidd)
 
 todo: make the depth of the U-net a parameter that's adjustable
 
-todo: use padding to avoid losing pixels on the border (Pinglei)
+todo: use padding to avoid losing pixels on the border
 
 todo: add overlay of actual image scan instead of only white noise
 
