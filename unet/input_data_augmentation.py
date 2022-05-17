@@ -46,7 +46,6 @@ def rescale(img: Image.Image, scale=None) -> Image.Image:
     # add border to have the original image dimensions if image is shrunken
     if thumbnail_size <= im_size:
         img = img.resize((thumbnail_size, thumbnail_size))
-        # img.thumbnail((thumbnail_size, thumbnail_size))
         border_size = (im_size - thumbnail_size) // 2
         return ImageOps.expand(img, border=border_size, fill=pixel_max)
 
