@@ -1,0 +1,13 @@
+arch: Uformer
+batch_size: 32
+gpu: 0
+train_ps: 128  # Patch size in pixels
+train_dir: "data/dataset/train"  # Path to training set
+# The training dataset is structured as follows, with the exact names below
+# > train_dir
+#   > input
+#   > groundtruth
+env: "01"  # Identifier for training log
+val_dir: "data/dataset/val"  # Path to validation set
+# Must follow the same structure as the training set directory
+embed_dim: 32
