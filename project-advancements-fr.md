@@ -164,6 +164,9 @@ Et lorsque le stent est très peu contrasté et avec une variance de bruit très
 
 
 ---
+## Rajout d’autres stents dans la bdd
+
+
 
 ## Todo List
 
