@@ -90,12 +90,15 @@ class ImageAugmentation:
         self.base_path = base_image_path
 
     def generate_input_images(self, n_images: int, save_path: str, generate_input: bool = False,
-                              print_progress=True) -> None:
+                              print_progress=True, 
+                              input_dir='x', gt_dir='y') -> None:
         """
         :param n_images: number of images to create
         :param save_path: path to the folder where the images will be saved
         :param generate_input: if True, the input images with noise will be created
         :param print_progress: if True, print the progress of the image generation
+        :param input_dir: name of the input directory
+        :param gt_dir: name of the ground truth directory
         """
 
         save_path_y = os.path.join(save_path, 'y') if generate_input else save_path
