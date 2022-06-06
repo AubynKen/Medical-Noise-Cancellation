@@ -17,6 +17,7 @@ weights
 # training data
 data/dataset/train
 data/dataset/test
+data/dataset/results*
 
 # Jupyter Notebook files
 .ipynb_checkpoints
