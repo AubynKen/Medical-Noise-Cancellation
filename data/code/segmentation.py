@@ -1,6 +1,8 @@
 """
 Segmentation of the base images into binary pixels, where a white pixel represents the background and a black pixel
 represents the stents.
+
+This code was not used in the project, but was kept for archiving purposes.
 """
 
 from PIL import Image

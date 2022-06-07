@@ -1,3 +1,6 @@
+# code for measuring PNSR and SSIM of our unet model
+# author: Igor Augusto de Oliveira
+
 import matplotlib.pyplot as plt
 import torch
 from torch.utils.data import Dataset, DataLoader

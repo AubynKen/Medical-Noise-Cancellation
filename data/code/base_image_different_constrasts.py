@@ -1,3 +1,5 @@
+# this code was used to generate base images (ie. images used for data-augmentation) with different contrast levels.
+
 import numpy as np
 from PIL import Image
 import os

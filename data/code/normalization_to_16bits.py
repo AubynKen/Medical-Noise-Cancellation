@@ -1,3 +1,6 @@
+# author: Pinglei He
+# code used for normalizing images and saving them into 16 bit grayscale images in png
+
 from PIL import Image
 import os
 import numpy as np

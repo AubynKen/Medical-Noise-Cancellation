@@ -1,3 +1,6 @@
+# code for our data augmentation pipeline
+# author: Pinglei He
+
 from PIL import Image, ImageChops, ImageOps
 import numpy as np
 import random as rd

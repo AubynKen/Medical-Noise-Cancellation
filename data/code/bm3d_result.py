@@ -1,5 +1,5 @@
 """
-Denoise noisy images from validation set for comparison.
+Denoise noisy images using bm3d from validation set for comparison.
 Author: Pinglei He
 """
 

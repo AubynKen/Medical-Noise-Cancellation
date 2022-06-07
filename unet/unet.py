@@ -1,3 +1,6 @@
+# code of our PyTorch implementation of the U-Net model
+# author: Pinglei He
+
 import torch
 import torch.nn as nn
 

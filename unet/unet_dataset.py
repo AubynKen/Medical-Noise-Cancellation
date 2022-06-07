@@ -1,3 +1,6 @@
+# code containing our custom PyTorch datasets used for training
+# author: Pinglei He
+
 from PIL import Image
 import os
 import numpy as np

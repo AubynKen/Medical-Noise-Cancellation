@@ -1,4 +1,6 @@
-#!/bin/bash 
+#!/bin/bash
+# code for training configuration in the Metz datacenter of CentraleSupelec
+# author: Igor Augusto Oliveira
 
 #SBATCH --job-name=unet
 #SBATCH --nodes=1

@@ -1,3 +1,6 @@
+# configuration for training the Uformer Model in the Metz Datacenter of CentraleSupelec
+# author: Igor Augusto Oliveira
+
 import argparse
 import os
 import yaml
