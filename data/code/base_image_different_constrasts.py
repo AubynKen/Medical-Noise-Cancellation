@@ -6,7 +6,7 @@ base_path = "../dataset/base_img_orig_contrast"
 files = os.listdir(base_path)
 
 for file in files:
-    if not file.endswith(".png"):
+    if not file.endswith(".jpg"):
         continue
     im = Image.open(os.path.join(base_path, file))
 
