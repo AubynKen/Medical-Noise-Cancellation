@@ -20,4 +20,7 @@ In the order in which they are created:
 - `unet-training.ipynb`: first steps of training of the UNet model using augmented data
 - `unet-training-online.ipynb`: training of the UNet model using augmented data generated during training to avoid
 - `project-advancements-fr.md`: project advancements and meeting reports in French
-taking up too much space on the hard-drive.
+
+*note: We have chosen to keep some of the archived files on the main branch instead of deleting them and accessing 
+them through commit history, because this repository is intended to be accessed by students of the following years
+working in follow-up or similar projects of the L2S.*
