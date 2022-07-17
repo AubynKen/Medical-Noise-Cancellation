@@ -23,4 +23,4 @@ In the order in which they are created:
 
 *note: We have chosen to keep some of the archived files on the main branch instead of deleting them and accessing 
 them through commit history, because this repository is intended to be accessed by students of the following years
-working in follow-up or similar projects of the L2S.*
+working in follow-up or similar projects of the L2S as a reference project repository.*
